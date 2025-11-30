@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Parser</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 400px; text-align: center; }
+        h1 { color: #333; margin-bottom: 25px; }
+        .upload-area { border: 2px dashed #007bff; padding: 30px; border-radius: 10px; background: #f0f8ff; cursor: pointer; transition: 0.3s; }
+        .upload-area:hover { background: #e6f2ff; border-color: #0056b3; }
+        input[type="file"] { display: none; }
+        .btn { background: #28a745; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px; width: 100%; }
+        .btn:hover { background: #218838; }
+        .result-box { margin-top: 30px; text-align: left; background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 5px solid #ffc107; }
+        .result-item { margin-bottom: 8px; font-size: 15px; }
+        .result-item strong { color: #856404; }
+        a { color: #007bff; text-decoration: none; display: block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📄 Resume Parser</h1>
+
+    {% if not result %}
+    <form action="/" method="post" enctype="multipart/form-data">
+        <div class="upload-area" onclick="document.getElementById('fileInput').click();">
+            <p>📂 Click to Upload Resume (PDF)</p>
+            <input type="file" name="resume" id="fileInput" accept=".pdf" required onchange="document.querySelector('.upload-area p').innerText = this.files[0].name">
+        </div>
+        <button type="submit" class="btn">Extract Information</button>
+    </form>
+    {% endif %}
+
+    {% if result %}
+    <div class="result-box">
+        <h3>✅ Parsed Details</h3>
+        <div class="result-item"><strong>Name:</strong> {{ name }}</div>
+        <div class="result-item"><strong>Email:</strong> {{ email }}</div>
+        <div class="result-item"><strong>Phone:</strong> {{ phone }}</div>
+    </div>
+    <a href="/">⬅ Parse Another Resume</a>
+    {% endif %}
+</div>
+
+</body>
+</html>
